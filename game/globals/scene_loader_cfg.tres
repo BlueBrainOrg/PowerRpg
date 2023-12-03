@@ -6,7 +6,7 @@
 script = ExtResource("1_v56nu")
 scenes = {
 "main_menu": "res://game/ui/main_menu/MainMenu.tscn",
-"scene1": "res://game/world/scene1/Scene1.tscn",
+"scene1": "res://game/world/hell.tscn",
 "scene2": "res://game/world/scene2/Scene2.tscn"
 }
 loading_screen = "res://game/ui/loading_screen/LoadingScreen.tscn"

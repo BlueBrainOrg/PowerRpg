@@ -30,14 +30,23 @@ config/icon="res://icon.svg"
 
 ControllerIcons="*res://addons/controller_icons/ControllerIcons.gd"
 SceneLoader="*res://addon_extensions/SceneLoader/SceneLoader2.gd"
+TurnManager="*res://addons/godot_gameplay_systems/turn_based/./autoloads/turn_manager.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AS2P/plugin.cfg", "res://addons/automatic_layer_enums/plugin.cfg", "res://addons/controller_icons/plugin.cfg", "res://addons/dictionary_inspector/plugin.cfg", "res://addons/godot-flexbox/plugin.cfg", "res://addons/godot-idea-board/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg", "res://addons/scene_loader/plugin.cfg")
+enabled=PackedStringArray("res://addons/AS2P/plugin.cfg", "res://addons/automatic_layer_enums/plugin.cfg", "res://addons/controller_icons/plugin.cfg", "res://addons/dictionary_inspector/plugin.cfg", "res://addons/godot-flexbox/plugin.cfg", "res://addons/godot-idea-board/plugin.cfg", "res://addons/godot_gameplay_systems/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg")
 
 [godot_idea_board]
 
 directory_path="res://addons/godot-idea-board/savedata/"
+
+[input]
+
+click_action={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
+}
 
 [rendering]
 

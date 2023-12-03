@@ -1,0 +1,89 @@
+[gd_scene load_steps=8 format=3 uid="uid://bw3f5xt1nkjdq"]
+
+[ext_resource type="Script" path="res://game/actors/player/player.gd" id="1_7mltq"]
+[ext_resource type="Script" path="res://addons/godot_gameplay_systems/extended_character_nodes/nodes/2d/point_and_click_2d.gd" id="1_iq2q4"]
+[ext_resource type="Script" path="res://game/actors/player/InputManager.gd" id="2_6pq0o"]
+[ext_resource type="PackedScene" uid="uid://kq8ddk5ojofc" path="res://game/scenes/visible_ray_cast_2d.tscn" id="4_p5s1s"]
+[ext_resource type="Script" path="res://game/actors/player/Path.gd" id="5_n3vxj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ig46s"]
+radius = 20.0
+
+[sub_resource type="GDScript" id="GDScript_kmbta"]
+script/source = "extends CanvasLayer
+
+@onready var player = $\"..\"
+@onready var point_and_click_2d = $\"../PointAndClick2D\"
+@onready var navigation_agent_2d = $\"../NavigationAgent2D\"
+
+@onready var speed = %Speed
+@onready var distance = %Distance
+@onready var target = %Target
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	distance.text = str(player.distance_to_target)
+	speed.text = str(point_and_click_2d.movement_speed)
+	target.text = str(navigation_agent_2d.target_position)
+"
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_7mltq")
+
+[node name="InputManager" type="Node" parent="."]
+script = ExtResource("2_6pq0o")
+
+[node name="PointAndClick2D" type="Node2D" parent="." node_paths=PackedStringArray("character_2d", "navigation_agent")]
+script = ExtResource("1_iq2q4")
+movement_speed = 300.0
+character_2d = NodePath("..")
+navigation_agent = NodePath("../NavigationAgent2D")
+automatic_movement = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ig46s")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="DebugInfo" type="CanvasLayer" parent="."]
+script = SubResource("GDScript_kmbta")
+
+[node name="Control" type="Control" parent="DebugInfo"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugInfo/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Distance" type="Label" parent="DebugInfo/Control/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "BLAH"
+
+[node name="Speed" type="Label" parent="DebugInfo/Control/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "BLAH"
+
+[node name="Target" type="Label" parent="DebugInfo/Control/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RayCast2D" parent="." instance=ExtResource("4_p5s1s")]
+width = 3.0
+
+[node name="Path" type="Line2D" parent="." node_paths=PackedStringArray("body")]
+top_level = true
+width = 5.0
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 16
+script = ExtResource("5_n3vxj")
+body = NodePath("..")
